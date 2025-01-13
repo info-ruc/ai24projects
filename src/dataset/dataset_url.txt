@@ -1,0 +1,6 @@
+通过百度网盘分享的文件：annotations.csv
+链接：https://pan.baidu.com/s/1i0611NxSteWAaNkFLF-raA?pwd=2222 
+提取码：2222
+通过百度网盘分享的文件：flickr30k.tar
+链接：https://pan.baidu.com/s/1vhHPoLIg-MC2GlT3e6nUSQ?pwd=1111 
+提取码：1111
