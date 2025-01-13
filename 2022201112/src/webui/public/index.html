@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YourOwnChat</title>
+
+  <link rel="stylesheet" href="style.css"> <!-- 引用外部 CSS 文件 -->
+  <link rel="icon" href="image/logo.webp" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <h1>YourOwnChat</h1>
+    <button id="toggleSidebarButton"></button> <!-- 切换侧边栏按钮 -->
+  </header>
+
+  <div id="sidebar" class="sidebar">
+    <!-- 侧边栏内容 -->
+    <h2>用户信息修改</h2>
+    <form id="userInfoForm">
+      <label for="nickname">昵称：</label>
+      <input type="text" id="nickname" name="nickname" placeholder="请输入昵称"><br>
+
+      <label for="gender">性别：</label>
+      <div class="gender-selection">
+        <input type="radio" id="male" name="gender" value="男">
+        <label for="male">男</label>
+        <input type="radio" id="female" name="gender" value="女">
+        <label for="female">女</label>
+      </div><br>
+
+      <label for="personality">性格：</label>
+      <input type="text" id="personality" name="personality" placeholder="请输入性格"><br>
+
+      <label for="hobbies">兴趣爱好：</label>
+      <input type="text" id="hobbies" name="hobbies" placeholder="请输入兴趣爱好"><br>
+
+      <label for="voice">声音：</label>
+      <input type="file" id="voice" name="voice" accept="audio/*"><br>
+
+      <label for="voicePrompt">声音提示词：</label>
+      <input type="text" id="voicePrompt" name="voicePrompt" placeholder="请输入声音提示词"><br>
+
+      <label for="appearance">外形：</label>
+      <input type="file" id="appearance" name="appearance" accept="image/*"><br>
+
+      <label for="appearancePrompt">形象提示词：</label>
+      <input type="text" id="appearancePrompt" name="appearancePrompt" placeholder="请输入形象提示词"><br>
+
+      <label for="specialRequests">特殊要求：</label>
+      <textarea id="specialRequests" name="specialRequests" placeholder="请输入特殊要求"></textarea><br>
+
+      <button type="button" id="submitButton">确定提交</button> <!-- 确定修改按钮 -->
+    </form>
+  </div>
+
+  <main>
+    <div class="chat-container" id="chatContainer">
+      <!-- 聊天记录会动态插入这里 -->
+    </div>
+    <div class="input-container">
+      <textarea id="inputText" placeholder="输入文字..."></textarea>
+      <button id="sendButton">发送</button>
+    </div>
+  </main>
+
+  <!-- 引用外部的 JavaScript 文件 -->
+  <script src="app.js"></script>
+</body>
+</html>

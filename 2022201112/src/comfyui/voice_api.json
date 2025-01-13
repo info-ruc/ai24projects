@@ -1,0 +1,67 @@
+{
+  "2": {
+    "inputs": {
+      "text": "收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。"
+    },
+    "class_type": "TextNode",
+    "_meta": {
+      "title": "TextNode"
+    }
+  },
+  "12": {
+    "inputs": {
+      "text": "希望你以后能够做的比我还好呦。"
+    },
+    "class_type": "TextNode",
+    "_meta": {
+      "title": "TextNode"
+    }
+  },
+  "13": {
+    "inputs": {
+      "audio": "zero_shot_prompt.wav",
+      "upload": ""
+    },
+    "class_type": "LoadAudio",
+    "_meta": {
+      "title": "LoadAudio"
+    }
+  },
+  "14": {
+    "inputs": {
+      "filename_prefix": "audio/ComfyUI",
+      "audio": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "SaveAudio",
+    "_meta": {
+      "title": "SaveAudio"
+    }
+  },
+  "15": {
+    "inputs": {
+      "speed": 1.0,
+      "inference_mode": "预训练音色",
+      "sft_dropdown": "中文女",
+      "seed": 2002,
+      "tts_text": [
+        "2",
+        0
+      ],
+      "prompt_text": [
+        "12",
+        0
+      ],
+      "prompt_wav": [
+        "13",
+        0
+      ]
+    },
+    "class_type": "CosyVoiceNode",
+    "_meta": {
+      "title": "CosyVoiceNode"
+    }
+  }
+}

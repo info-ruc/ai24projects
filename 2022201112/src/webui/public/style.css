@@ -1,0 +1,298 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f3f4f6;
+  color: #333;
+}
+
+header {
+  position: fixed;
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(123, 0, 255, 0.8));
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 998;
+}
+
+header.blocked > *:not(#toggleSidebarButton):not(#toggleSidebarButton *) {
+  filter: blur(4px);
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+}
+
+/* 聊天容器样式 */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #fdfdfd;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-color 1s ease-in-out, background-image 1s ease-in-out;
+}
+
+.chat-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  margin: 10px 0;
+  z-index: 2;  /* 确保消息气泡位于遮罩层上方 */
+}
+
+.message.user {
+  flex-direction: row-reverse;
+}
+
+.message .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 10px;
+  object-fit: cover; /* 保持比例，同时裁剪图片填充整个区域 */
+}
+
+.message .content {
+  max-width: 70%;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.message.user .content {
+  background-color: #007bff;
+  color: white;
+  border-bottom-right-radius: 0;
+}
+
+.message.server .content {
+  background-color: #eaeaea;
+  color: #333;
+  border-bottom-left-radius: 0;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.input-container {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  background-color: white;
+}
+
+.input-container textarea {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: none;
+  height: 150px;
+  transition: border-color 0.3s ease;
+}
+
+.input-container textarea:focus {
+  border-color: #007bff;
+}
+
+.input-container button {
+  margin-left: 15px;
+  padding: 12px 25px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #007bff, #6a1b9a);  /* 渐变背景 */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.input-container button:hover {
+  background: linear-gradient(135deg, #0056b3, #8e24aa);  /* 按钮悬停时的渐变效果 */
+  transform: scale(1.05);  /* 放大效果 */
+}
+
+.input-container button:active {
+  background: linear-gradient(135deg, #004080, #7b1fa2);  /* 按钮点击时的渐变效果 */
+  transform: scale(0.95);  /* 缩小效果 */
+}
+
+/* 侧边栏样式 */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -255px; /* 初始位置在左侧外面 */
+  width: 250px; /* 侧边栏宽度 */
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 123, 255, 1), rgba(123, 0, 255, 1)); /* 渐变背景 */
+  color: white;
+  padding: 20px;
+  transition: transform 0.3s ease; /* 添加过渡动画 */
+  z-index: 999; /* 确保侧边栏的层级低于按钮 */
+}
+
+.sidebar h2 {
+  margin-top: 0;
+}
+
+.sidebar label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+/* 让性别选择框在同一行显示 */
+.sidebar .gender-selection {
+  display: flex;
+  align-items: center;
+  gap: 10px;  /* 控制选项之间的间距 */
+}
+
+.sidebar .gender-selection input {
+  margin: 0;  /* 移除单选框的默认间距 */
+}
+
+.sidebar input, .sidebar textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+#submitButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+#submitButton:hover {
+  background-color: #45a049;
+}
+
+/* 侧边栏显示时的样式 */
+.sidebar.open {
+  transform: translateX(250px); /* 通过 translateX 将侧边栏滑动到视口内 */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.sidebar li:hover {
+  background-color: #575757;
+}
+
+/* 侧边栏按钮样式 */
+#toggleSidebarButton {
+  position: fixed;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%); /* 使按钮垂直居中 */
+  background-color: transparent;
+  color: #4CAF50;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 30px; /* 调整三角形的大小 */
+  border-radius: 0;
+  z-index: 1000; /* 确保按钮在其他元素上层 */
+  transition: transform 0.3s ease; /* 添加平滑过渡效果 */
+
+  margin-left: 0; /* 初始时，主内容没有左边距 */
+  transition: margin-left 0.3s ease; /* 让主内容区域跟随侧边栏移动 */
+
+  background-image: url('image/menu.png'); /* 设置按钮背景图 */
+  background-size: contain; /* 使图标适应按钮大小 */
+  background-repeat: no-repeat; /* 防止图标重复 */
+  background-position: center; /* 使图标居中 */
+}
+
+#toggleSidebarButton.open {
+  margin-left: 250px; /* 侧边栏打开时，给按钮添加左侧边距 */
+}
+
+/* 使内容区域不被侧边栏遮挡 */
+main {
+  margin-left: 0; /* 初始时，主内容没有左边距 */
+  transition: margin-left 0.3s ease; /* 让主内容区域跟随侧边栏移动 */
+}
+
+main.sidebar-open {
+  margin-left: 245px; /* 侧边栏打开时，给主内容添加左侧边距 */
+}
+
+/* 标题样式 */
+header {
+  position: relative;
+  padding: 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+}
+
+/* 阴影效果 */
+.chat-container.blocked, .input-container.blocked {
+  pointer-events: none; /* 禁用点击事件 */
+  opacity: 0.5; /* 设置透明度 */
+  filter: blur(4px); /* 添加模糊效果 */
+}
+
+/* 当侧边栏打开且距离右侧较近时 */
+.main.sidebar-open .chat-container,
+.main.sidebar-open .input-container {
+  filter: blur(5px);
+  pointer-events: none; /* 禁止用户点击 */
+  opacity: 0.3; /* 设置透明度 */
+}
+
+.audio-player {
+  width: 200px;  /* 控制音频条的宽度 */
+  height: 30px;  /* 控制音频条的高度 */
+  background-color: #f0f0f0; /* 可选，设置背景色 */
+}
